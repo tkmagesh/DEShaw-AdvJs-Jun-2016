@@ -62,10 +62,11 @@ function oddEvenFinderFactory(){
 function memoize(algoFn){
 	var cache = {};
 	
-	return function(n){
-		if (typeof cache[n] === 'undefined')
-			cache[n] = algoFn(n);
-		return cache[n];
+	return function(){
+		var key = JSON.stringify(arguments);
+		if (typeof cache[key] === 'undefined')
+			cache[key] = algoFn.apply(this, arguments);
+		return cache[key];
 	}
 	
 }
